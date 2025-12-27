@@ -62,7 +62,6 @@ export default function MyRegistrations() {
 
     try {
       await api.cancelRegistration(selectedRegistration.match_id);
-      // Обновляем список после отмены
       const updatedData = await api.getMyRegistrations();
       setRegistrations(updatedData || []);
       setShowCancelModal(false);
@@ -79,9 +78,9 @@ export default function MyRegistrations() {
   const pastRegistrations = registrations
     .filter(
       (reg) =>
-        new Date(reg.match.start_time) <= now && reg.payment_status === "paid" // Показываем только успешно оплаченные матчи
+        new Date(reg.match.start_time) <= now && reg.payment_status === "paid"
     )
-    .slice(0, 3); // Ограничиваем до 2-3 последних матчей согласно ТЗ
+    .slice(0, 3);
 
   const currentRegistrations =
     activeTab === "upcoming" ? upcomingRegistrations : pastRegistrations;
@@ -114,7 +113,7 @@ export default function MyRegistrations() {
             marginBottom: "15px",
             borderRadius: "24px",
             overflow: "hidden",
-            border: "2px solid rgba(0,0,0,0.8)", // Изменено: темный border для контраста на белом фоне
+            border: "2px solid var(--tg-theme-hint-color, rgba(0,0,0,0.2))",
             backdropFilter: "blur(10px)",
             alignSelf: "center",
             flexShrink: 0,
@@ -127,10 +126,13 @@ export default function MyRegistrations() {
               height: "50px",
               background:
                 activeTab === "upcoming"
-                  ? "rgba(0,0,0,0.2)" // Изменено: темный фон для активной вкладки
-                  : "rgba(0,0,0,0.02)", // Изменено: очень светлый темный для неактивной
+                  ? "var(--tg-theme-button-color, #2481cc)"
+                  : "var(--tg-theme-secondary-bg-color, #f0f0f0)",
               border: "none",
-              color: "#333333", // Изменено: темный текст вместо белого для видимости на светлом фоне
+              color:
+                activeTab === "upcoming"
+                  ? "var(--tg-theme-button-text-color, #ffffff)"
+                  : "var(--tg-theme-text-color, #000000)",
               fontSize: "1rem",
               fontWeight: "600",
               cursor: "pointer",
@@ -139,8 +141,10 @@ export default function MyRegistrations() {
               WebkitUserSelect: "none",
             }}
           >
+              <div style={{color:'grey'}}>
             Предстоящие
-          </button>
+            </div>
+                      </button>
           <button
             onClick={() => setActiveTab("past")}
             style={{
@@ -148,10 +152,13 @@ export default function MyRegistrations() {
               height: "50px",
               background:
                 activeTab === "past"
-                  ? "rgba(0,0,0,0.2)" // Изменено: темный фон для активной вкладки
-                  : "rgba(0,0,0,0.02)", // Изменено: очень светлый темный для неактивной
+                  ? "var(--tg-theme-button-color, #2481cc)"
+                  : "var(--tg-theme-secondary-bg-color, #f0f0f0)",
               border: "none",
-              color: "#333333", // Изменено: темный текст вместо белого
+              color:
+                activeTab === "past"
+                  ? "var(--tg-theme-button-text-color, #ffffff)"
+                  : "var(--tg-theme-text-color, #000000)",
               fontSize: "1rem",
               fontWeight: "600",
               cursor: "pointer",
@@ -160,7 +167,10 @@ export default function MyRegistrations() {
               WebkitUserSelect: "none",
             }}
           >
+              <div style={{color:'grey'}}>
+
             Прошедшие
+</div>
           </button>
         </div>
 
@@ -181,7 +191,7 @@ export default function MyRegistrations() {
           {currentRegistrations.length === 0 ? (
             <div
               style={{
-                color: "#333333", // Изменено: темный текст вместо белого для видимости
+                color: "var(--tg-theme-text-color, #000000)",
                 fontSize: "1.1rem",
                 textAlign: "center",
                 opacity: 0.8,
@@ -189,9 +199,12 @@ export default function MyRegistrations() {
                 marginTop: "20px",
               }}
             >
+              <div style={{color:'grey'}}>
+
               {activeTab === "upcoming"
                 ? "У вас нет предстоящих записей"
                 : "У вас нет прошедших записей"}
+                </div>
             </div>
           ) : (
             currentRegistrations.map((registration) => (
@@ -208,9 +221,10 @@ export default function MyRegistrations() {
                     style={{
                       fontSize: "1.1rem",
                       fontWeight: "600",
-                      color: "#333333", // Изменено: темный текст для заголовка даты
+                      color: "var(--tg-theme-text-color, #000000)",
                     }}
                   >
+                    <div style={{color:'gray'}}>
                     {new Date(registration.match.date).toLocaleDateString(
                       "ru-RU",
                       {
@@ -218,21 +232,26 @@ export default function MyRegistrations() {
                         month: "long",
                       }
                     )}
+                    </div>
+
                   </div>
                   <div
                     style={{
                       background:
                         registration.type === "main_list"
-                          ? "rgba(0,255,0,0.2)" // Оставлено: зеленый для основного
-                          : "rgba(255,165,0,0.2)", // Оставлено: оранжевый для резерва
+                          ? "rgba(76, 175, 80, 0.2)"
+                          : "rgba(255, 165, 0, 0.2)",
                       padding: "4px 8px",
                       borderRadius: "10px",
                       fontSize: "0.75rem",
                       fontWeight: "500",
-                      color: "#333333", // Изменено: темный текст для типа
+                      color: "var(--tg-theme-text-color, #000000)",
+                      border: "1px solid rgba(0,0,0,0.1)",
                     }}
                   >
+                    <div style={{color:'#68c9c9ff'}}>
                     {registration.type === "main_list" ? "Основной" : "Резерв"}
+                    </div>
                   </div>
                 </div>
 
@@ -244,15 +263,17 @@ export default function MyRegistrations() {
                     display: "flex",
                     alignItems: "center",
                     gap: "6px",
-                    color: "#333333", // Изменено: темный текст для времени
+                    color: "var(--tg-theme-text-color, #000000)",
                   }}
                 >
                   <img
                     src="/icon-time.png"
                     alt="Время"
-                    style={{ width: "16px", height: "16px" }}
+                    style={{ width: "16px", height: "16px", opacity: 0.8 }}
                   />
+                  <div style={{color:'gray'}}>
                   {formatTime(registration.match.start_time)}
+                  </div>
                 </div>
 
                 <div
@@ -263,10 +284,13 @@ export default function MyRegistrations() {
                     display: "flex",
                     alignItems: "center",
                     gap: "6px",
-                    color: "#333333", // Изменено: темный текст для веню
+                    color: "var(--tg-theme-text-color, #000000)",
                   }}
                 >
-                  🏟️ {registration.match.venue.name}
+                  <div style={{color:'grey'}}>
+                
+                  <span style={{ opacity: 0.8, }}>🏟️</span> {registration.match.venue.name}
+                  </div>
                 </div>
 
                 <div
@@ -274,10 +298,12 @@ export default function MyRegistrations() {
                     fontSize: "0.85rem",
                     opacity: 0.7,
                     marginBottom: "12px",
-                    color: "#666666", // Изменено: более тусклый темный для адреса
+                    color: "var(--tg-theme-subtitle-text-color, #666666)",
                   }}
                 >
+                  <div style={{color:'grey'}}>
                   {registration.match.venue.address}
+                  </div>
                 </div>
 
                 {/* Статус платежа */}
@@ -289,22 +315,24 @@ export default function MyRegistrations() {
                       gap: "8px",
                       marginBottom: "12px",
                       fontSize: "0.9rem",
-                      color: "#333333", // Изменено: темный текст для статуса
+                      color: "var(--tg-theme-text-color, #000000)",
                     }}
                   >
-                    <span>Платеж:</span>
+                    <span style={{ opacity: 0.8 }}>Платеж:</span>
                     {registration.payment_status === "paid" && (
-                      <span style={{ color: "#4CAF50" }}>
+                      <span style={{ color: "#4CAF50", fontWeight: "600" }}>
                         ✅ Оплачено вы записаны!
                       </span>
                     )}
                     {registration.payment_status === "pending" && (
-                      <span style={{ color: "#FF9800" }}>
+                      <span style={{ color: "#FF9800", fontWeight: "600" }}>
                         ⏳ Ожидает оплаты
                       </span>
                     )}
                     {registration.payment_status === "failed" && (
-                      <span style={{ color: "#F44336" }}>❌ Не оплачено</span>
+                      <span style={{ color: "#F44336", fontWeight: "600" }}>
+                        ❌ Не оплачено
+                      </span>
                     )}
                   </div>
                 )}
@@ -314,27 +342,37 @@ export default function MyRegistrations() {
                   registration.payment_status === "pending" && (
                     <div
                       style={{
-                        background: "rgba(255, 165, 0, 0.1)", // Оставлено: оранжевый фон
-                        border: "1px solid rgba(255, 165, 0, 0.3)", // Оставлено
+                        background: "rgba(255, 165, 0, 0.1)",
+                        border: "1px solid rgba(255, 165, 0, 0.3)",
                         borderRadius: "8px",
                         padding: "12px",
                         marginTop: "12px",
                         fontSize: "0.9rem",
                         textAlign: "center",
-                        color: "#333333", // Изменено: темный текст
+                        color: "var(--tg-theme-text-color, #000000)",
                       }}
                     >
-                      <div style={{ marginBottom: "8px", fontWeight: "600" }}>
+                      <div style={{ 
+                        marginBottom: "8px", 
+                        fontWeight: "600",
+                        color: "var(--tg-theme-text-color, #000000)" 
+                      }}>
+                        <div style={{color:'grey'}}>
                         ⏰ Ожидает оплаты
+                        </div>
                       </div>
-                      <div style={{ fontSize: "0.8rem", opacity: 0.8, marginBottom: "12px" }}>
+                      <div style={{ 
+                        fontSize: "0.8rem", 
+                        opacity: 0.8, 
+                        marginBottom: "12px",
+                        color: "var(--tg-theme-subtitle-text-color, #666666)" 
+                      }}>
                         После оплаты нажмите кнопку "Проверить оплату".
                       </div>
                       <CheckPaymentButton
                         registrationId={registration.id}
                         onPaymentChecked={async (success, message) => {
                           if (success) {
-                            // Обновляем список регистраций
                             const updatedData = await api.getMyRegistrations();
                             setRegistrations(updatedData || []);
                           }
@@ -350,10 +388,10 @@ export default function MyRegistrations() {
                     style={{
                       width: "100%",
                       height: "36px",
-                      background: "rgba(255,0,0,0.2)", // Оставлено: красный фон
-                      border: "2px solid rgba(255,0,0,0.5)", // Оставлено
+                      background: "rgba(244, 67, 54, 0.1)",
+                      border: "2px solid rgba(244, 67, 54, 0.5)",
                       borderRadius: "18px",
-                      color: "#333333", // Изменено: темный текст вместо белого
+                      color: "var(--tg-theme-text-color, #000000)",
                       fontSize: "0.9rem",
                       fontWeight: "600",
                       cursor: "pointer",
@@ -366,7 +404,9 @@ export default function MyRegistrations() {
                           : "0",
                     }}
                   >
+                    <div style={{color:'red',}}>
                     Отменить бронирование
+                    </div>
                   </button>
                 )}
 
@@ -386,20 +426,22 @@ export default function MyRegistrations() {
           {/* Предупреждение */}
           <TelegramCard
             style={{
-              background: "rgba(255,165,0,0.1)", // Оставлено: оранжевый фон
-              borderColor: "rgba(255,165,0,0.5)", // Оставлено
+              background: "rgba(255,165,0,0.1)",
+              borderColor: "rgba(255,165,0,0.5)",
               textAlign: "center",
               fontSize: "0.85rem",
               lineHeight: "1.4",
               marginBottom: "20px",
               marginTop: "20px",
-              color: "#333333", // Изменено: темный текст
+              color: "var(--tg-theme-text-color, #000000)",
             }}
           >
-            <strong>⚠️ Внимание!</strong>
+            <strong style={{color:'grey',}}>⚠️ Внимание!</strong>
             <br />
+            <div style={{color:'grey'}}>
             Если у тебя что-то случилось и ты не сможешь прийти, пожалуйста,
             отмени бронь в своём профиле или напиши нам
+            </div>
           </TelegramCard>
 
           <TelegramButton to="/profile" variant="secondary">

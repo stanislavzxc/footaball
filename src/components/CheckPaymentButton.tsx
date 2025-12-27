@@ -94,7 +94,7 @@ export const CheckPaymentButton: React.FC<CheckPaymentButtonProps> = ({
       disabled={isDisabled}
       style={{
         backgroundColor: isDisabled ? '#666' : '#2196F3',
-        borderColor: isDisabled ? '#666' : '#2196F3',
+        borderColor: isDisabled ? '#534f4fff' : '#2196F3',
         color: 'white',
         padding: '0.75rem 1.5rem',
         fontSize: '1rem',
@@ -109,7 +109,7 @@ export const CheckPaymentButton: React.FC<CheckPaymentButtonProps> = ({
       }}
     >
       <div
-      style={{color:'grey',}}
+      style={{color:'grey'}}
       >
 
       {isChecking ? (

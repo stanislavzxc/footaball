@@ -110,7 +110,7 @@ export default function RegisteredList() {
             fontWeight: '500', 
             lineHeight: '1.4',
             opacity: 0.9,
-            color: '#333333' // Изменено: темный текст
+            color: '#686666ff' // Изменено: темный текст
           }}>
             <div>{formatMatchInfo().address}</div>
             <div>{formatMatchInfo().date} {formatMatchInfo().time}</div>
@@ -126,7 +126,7 @@ export default function RegisteredList() {
             textAlign: 'center',
             borderBottom: '1px solid rgba(0,0,0,0.2)', // Изменено: темная граница
             paddingBottom: '8px',
-            color: '#333333' // Изменено: темный текст
+            color: '#635f5fff' // Изменено: темный текст
           }}>
             👥 Записавшиеся игроки ({players.length})
           </div>
