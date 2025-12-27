@@ -1,0 +1,138 @@
+/* iOS/iPhone specific fixes for Telegram Mini App */
+
+/* Исправление viewport для iPhone */
+@supports (-webkit-touch-callout: none) {
+  :root {
+    --viewport-height: 100vh;
+    --viewport-height: -webkit-fill-available;
+  }
+  
+  html {
+    height: var(--viewport-height);
+    height: 100vh;
+    height: -webkit-fill-available;
+  }
+  
+  body {
+    height: var(--viewport-height);
+    height: 100vh;
+    height: -webkit-fill-available;
+    min-height: var(--viewport-height);
+    min-height: 100vh;
+    min-height: -webkit-fill-available;
+    /* Предотвращаем bounce эффект */
+    position: fixed;
+    overflow: hidden;
+    -webkit-overflow-scrolling: touch;
+    overscroll-behavior: none;
+  }
+  
+  #root {
+    height: var(--viewport-height);
+    height: 100vh;
+    height: -webkit-fill-available;
+    min-height: var(--viewport-height);
+    min-height: 100vh;
+    min-height: -webkit-fill-available;
+    overflow-y: auto;
+    overflow-x: hidden;
+    -webkit-overflow-scrolling: touch;
+  }
+  
+  .telegram-mini-app {
+    height: var(--viewport-height);
+    height: 100vh;
+    height: -webkit-fill-available;
+    min-height: var(--viewport-height);
+    min-height: 100vh;
+    min-height: -webkit-fill-available;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    overflow: hidden;
+  }
+}
+
+/* Дополнительные исправления для Safari на iPhone */
+@media screen and (-webkit-min-device-pixel-ratio: 2) {
+  body {
+    /* Исправляем проблему с адресной строкой Safari */
+    height: 100vh;
+    height: calc(var(--vh, 1vh) * 100);
+  }
+  
+  #root {
+    height: 100vh;
+    height: calc(var(--vh, 1vh) * 100);
+  }
+  
+  .telegram-mini-app {
+    height: 100vh;
+    height: calc(var(--vh, 1vh) * 100);
+  }
+}
+
+/* Исправления для iPhone X и новее (с notch) */
+@supports (padding: max(0px)) {
+  body {
+    padding-top: max(env(safe-area-inset-top), 0px);
+    padding-bottom: max(env(safe-area-inset-bottom), 0px);
+    padding-left: max(env(safe-area-inset-left), 0px);
+    padding-right: max(env(safe-area-inset-right), 0px);
+  }
+}
+
+/* Предотвращаем zoom при фокусе на input на iPhone */
+@media screen and (max-width: 767px) {
+  input[type="text"],
+  input[type="email"],
+  input[type="tel"],
+  input[type="password"],
+  textarea,
+  select {
+    font-size: 16px !important;
+  }
+}
+
+/* Исправляем проблемы с touch событиями */
+* {
+  -webkit-tap-highlight-color: transparent;
+  -webkit-touch-callout: none;
+  -webkit-user-select: none;
+  user-select: none;
+}
+
+/* Разрешаем выделение текста только для определенных элементов */
+input,
+textarea,
+[contenteditable="true"] {
+  -webkit-user-select: text;
+  user-select: text;
+}
+
+/* Исправляем проблему с прокруткой на iPhone */
+.content-container,
+.layout-container {
+  -webkit-overflow-scrolling: touch;
+  overscroll-behavior: none;
+  touch-action: pan-y;
+}
+
+/* Убираем bounce эффект при прокрутке */
+html {
+  overscroll-behavior: none;
+}
+
+body {
+  overscroll-behavior: none;
+  touch-action: pan-y;
+}
+
+/* Исправляем проблему с клавиатурой на iPhone */
+@media screen and (max-height: 500px) {
+  .telegram-mini-app {
+    height: 100vh;
+    height: -webkit-fill-available;
+  }
+}

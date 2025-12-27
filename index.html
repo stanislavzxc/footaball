@@ -1,0 +1,71 @@
+<!doctype html>
+<html lang="ru">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover" />
+    <title>Футбол Иваново - Запись на игры</title>
+    <meta name="description" content="Система записи на футбольные игры в Иваново. Играй в футбол 5х5 на искусственной траве." />
+    <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate" />
+    <meta http-equiv="Pragma" content="no-cache" />
+    <meta http-equiv="Expires" content="0" />
+    <script src="https://telegram.org/js/telegram-web-app.js"></script>
+
+    <script>
+      // Немедленная инициализация viewport для iPhone
+      (function() {
+        function setViewportHeight() {
+          const isIOS = /iPad|iPhone|iPod/.test(navigator.userAgent) || 
+                       (navigator.platform === 'MacIntel' && navigator.maxTouchPoints > 1);
+          
+          let height = window.innerHeight;
+          
+          if (isIOS) {
+            // Используем Telegram WebApp API если доступен
+            if (window.Telegram && window.Telegram.WebApp) {
+              const tgHeight = window.Telegram.WebApp.viewportStableHeight || 
+                              window.Telegram.WebApp.viewportHeight;
+              if (tgHeight) {
+                height = tgHeight;
+              }
+            }
+            
+            // Устанавливаем CSS переменные
+            document.documentElement.style.setProperty('--vh', (height * 0.01) + 'px');
+            document.documentElement.style.setProperty('--viewport-height', height + 'px');
+            
+            // Предотвращаем bounce эффект
+            document.documentElement.style.overflow = 'hidden';
+            document.body.style.overflow = 'hidden';
+            document.body.style.position = 'fixed';
+            document.body.style.width = '100%';
+            document.body.style.height = height + 'px';
+          }
+        }
+        
+        // Выполняем сразу
+        setViewportHeight();
+        
+        // И при загрузке DOM
+        if (document.readyState === 'loading') {
+          document.addEventListener('DOMContentLoaded', setViewportHeight);
+        }
+        
+        // И при загрузке страницы
+        window.addEventListener('load', setViewportHeight);
+      })();
+    </script>
+    <style>
+      /* @font-face {
+        font-family: 'EdoSZ';
+        src: url('/fonts/edoszq_regular.ttf') format('truetype');
+        font-weight: normal;
+        font-style: normal;
+        font-display: swap;
+      } */
+    </style>
+  </head>
+  <body>
+    <div id="root"></div>
+    <script type="module" src="/src/main.tsx"></script>
+  </body>
+</html>

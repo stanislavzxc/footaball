@@ -1,0 +1,2109 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap');
+@import './styles/ios-fixes.css';
+
+/* @font-face {
+  font-family: 'EdoSZ';
+  src: url('/fonts/edoszq_regular.ttf') format('truetype');
+  font-weight: normal;
+  font-style: normal;
+} */
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* Telegram Mini App Optimized Styles */
+body {
+  margin: 0;
+  padding: 0;
+  font-family: Inter, -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  overflow-x: hidden;
+  max-width: 100vw;
+  user-select: none;
+  -webkit-user-select: none;
+  -webkit-touch-callout: none;
+  -webkit-tap-highlight-color: transparent;
+  /* Исправления для mini app - стабильная позиция */
+  width: 100vw;
+  height: 100vh;
+  height: 100dvh; /* Dynamic viewport height для современных браузеров */
+  max-height: 100vh;
+  max-height: 100dvh;
+  position: fixed;
+  top: 0;
+  left: 0;
+  touch-action: pan-y;
+  overscroll-behavior: none;
+  -webkit-overflow-scrolling: touch;
+  /* Safe area для iPhone */
+  padding-top: env(safe-area-inset-top);
+  padding-bottom: env(safe-area-inset-bottom);
+  padding-left: env(safe-area-inset-left);
+  padding-right: env(safe-area-inset-right);
+}
+
+* {
+  box-sizing: border-box;
+  /* Предотвращаем выделение текста и перетаскивание */
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+  -webkit-touch-callout: none;
+  -webkit-tap-highlight-color: transparent;
+  /* Предотвращаем горизонтальную прокрутку */
+  max-width: 100vw;
+}
+
+/* Предотвращаем bounce эффект в Safari */
+html {
+  overscroll-behavior: none;
+  -webkit-overflow-scrolling: touch;
+  /* Добавляем стабильность viewport */
+  height: 100%;
+}
+
+/* Дополнительные правила для mini app */
+.telegram-mini-app {
+  width: 100vw;
+  min-height: 100vh;
+  min-height: 100dvh; /* Dynamic viewport height */
+  overflow-x: hidden;
+  touch-action: pan-y;
+  overscroll-behavior: none;
+  position: fixed;
+  top: 0;
+  left: 0;
+}
+
+/* Специальные правила для iPhone */
+@supports (-webkit-touch-callout: none) {
+  .telegram-mini-app {
+    height: 100vh;
+    height: -webkit-fill-available;
+    min-height: 100vh;
+    min-height: -webkit-fill-available;
+  }
+  
+  body {
+    height: 100vh;
+    height: -webkit-fill-available;
+    min-height: 100vh;
+    min-height: -webkit-fill-available;
+  }
+  
+  #root {
+    height: 100vh;
+    height: -webkit-fill-available;
+    min-height: 100vh;
+    min-height: -webkit-fill-available;
+  }
+}
+
+/* Исправление для проблемы с viewport после сворачивания */
+#root {
+  width: 100vw;
+  min-height: 100vh;
+  overflow-x: hidden;
+}
+
+/* Убираем скролл-бары в Mini App */
+::-webkit-scrollbar {
+  width: 0px;
+  background: transparent;
+}
+
+/* Оптимизация для touch устройств */
+button, a, [role="button"] {
+  -webkit-tap-highlight-color: transparent;
+}
+
+@layer base {
+  :root {
+    --background: 0 0% 100%;
+    --foreground: 222.2 84% 4.9%;
+    --card: 0 0% 100%;
+    --card-foreground: 222.2 84% 4.9%;
+    --popover: 0 0% 100%;
+    --popover-foreground: 222.2 84% 4.9%;
+    --primary: 222.2 47.4% 11.2%;
+    --primary-foreground: 210 40% 98%;
+    --secondary: 210 40% 96%;
+    --secondary-foreground: 222.2 47.4% 11.2%;
+    --muted: 210 40% 96%;
+    --muted-foreground: 215.4 16.3% 46.9%;
+    --accent: 210 40% 96%;
+    --accent-foreground: 222.2 47.4% 11.2%;
+    --destructive: 0 84.2% 60.2%;
+    --destructive-foreground: 210 40% 98%;
+    --border: 214.3 31.8% 91.4%;
+    --input: 214.3 31.8% 91.4%;
+    --ring: 222.2 84% 4.9%;
+    --radius: 0.5rem;
+  }
+}
+
+/* ===== БАЗОВЫЕ СТИЛИ ===== */
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+textarea {
+  resize: none;
+}
+
+html, body, #root {
+  height: 100vh;
+  height: 100dvh; /* Dynamic viewport height для современных браузеров */
+  width: 100vw;
+  font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  overflow-x: hidden;
+  /* Исправления для mini app */
+  position: fixed;
+  top: 0;
+  left: 0;
+  touch-action: pan-y;
+  overscroll-behavior: none;
+  -webkit-overflow-scrolling: touch;
+}
+
+#root {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  height: 100dvh; /* Dynamic viewport height для современных браузеров */
+  overflow-y: auto;
+  overflow-x: hidden;
+  -webkit-overflow-scrolling: touch;
+}
+
+/* ===== ОСНОВНЫЕ КНОПКИ ===== */
+.main-button {
+  background: rgba(255,255,255,0.9);
+  color: white;
+  border: 2px solid rgba(255,255,255,0.3);
+  border-radius: 25px;
+  padding: 1rem 2rem;
+  font-size: 1.1rem;
+  font-weight: 600;
+  width: 100%;
+  max-width: 350px;
+  margin: 0.5rem auto;
+  display: block;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  backdrop-filter: blur(10px);
+  text-decoration: none;
+  text-align: center;
+  font-family: 'Inter', sans-serif;
+}
+
+.main-button:hover {
+  background: rgba(255,255,255,1);
+  transform: translateY(-2px);
+  box-shadow: 0 8px 25px rgba(0,0,0,0.2);
+}
+
+.main-button:active {
+  transform: translateY(0);
+}
+
+/* Десктопные hover эффекты с мягким свечением */
+@media (hover: hover) and (pointer: fine) {
+  /* Глобальные hover эффекты для всех кнопок */
+  button:hover:not(:disabled),
+  .telegram-button:hover:not(:disabled),
+  .main-button:hover:not(:disabled),
+  .back-button:hover:not(:disabled),
+  .contact-button:hover:not(:disabled),
+  .modal-button:hover:not(:disabled),
+  a[role="button"]:hover:not(:disabled),
+  [role="button"]:hover:not(:disabled) {
+    box-shadow: 0 0 20px rgba(255, 255, 255, 0.3);
+    transform: translateY(-2px);
+    transition: all 0.3s ease;
+  }
+  
+  .main-button:hover {
+    box-shadow: 0 8px 25px rgba(0,0,0,0.2), 0 0 20px rgba(255,255,255,0.3);
+  }
+  
+  /* Hover эффекты для TelegramButton */
+  .telegram-button:hover:not(:disabled) {
+    box-shadow: 0 0 20px rgba(255, 255, 255, 0.3);
+    transform: translateY(-2px);
+  }
+  
+  .telegram-button-primary:hover:not(:disabled) {
+    background: rgba(255,255,255,0.08) !important;
+    box-shadow: 0 0 20px rgba(255, 255, 255, 0.3);
+    color: white !important;
+  }
+  
+  .telegram-button-secondary:hover:not(:disabled) {
+    background: rgba(255,255,255,0.15) !important;
+    box-shadow: 0 0 20px rgba(255, 255, 255, 0.3);
+    color: white !important;
+  }
+  
+
+  
+  .telegram-button-admin:hover:not(:disabled) {
+    background: rgba(255,165,0,0.2) !important;
+    box-shadow: 0 0 20px rgba(255, 165, 0, 0.4);
+  }
+  
+  .telegram-button-register:hover:not(:disabled) {
+    background: #25C03A !important;
+    box-shadow: 0 0 20px rgba(32, 177, 54, 0.5);
+  }
+}
+
+
+/* Исправление для select элементов - темный фон для опций */
+select option {
+  background: #1E3A8A;
+  color: white;
+}
+
+/* Исправление для iOS - убираем белый фон у input, textarea, select */
+input,
+textarea,
+select {
+  appearance: none;
+  -webkit-appearance: none !important;
+  -moz-appearance: none;
+  background: rgba(255, 255, 255, 0.1) !important;
+  border: 2px solid rgba(255, 255, 255, 0.3) !important;
+}
+
+/* Текстовый курсор для input и textarea на десктопных устройствах (не Android и не iOS) */
+/* Используем медиа-запрос для определения десктопных устройств */
+@media (hover: hover) and (pointer: fine) {
+  /* Для десктопных устройств принудительно устанавливаем текстовый курсор */
+  input:not([type="checkbox"]):not([type="radio"]):not([type="file"]):not([type="submit"]):not([type="button"]),
+  textarea {
+    caret-color: white !important;
+    cursor: text !important;
+    -webkit-user-select: text !important;
+    -moz-user-select: text !important;
+    -ms-user-select: text !important;
+    user-select: text !important;
+  }
+  
+  input:not([type="checkbox"]):not([type="radio"]):not([type="file"]):not([type="submit"]):not([type="button"]):focus,
+  textarea:focus {
+    caret-color: white !important;
+    cursor: text !important;
+    -webkit-user-select: text !important;
+    -moz-user-select: text !important;
+    -ms-user-select: text !important;
+    user-select: text !important;
+  }
+  
+  /* Убеждаемся, что курсор виден при клике */
+  input:not([type="checkbox"]):not([type="radio"]):not([type="file"]):not([type="submit"]):not([type="button"]):active,
+  textarea:active {
+    caret-color: white !important;
+    cursor: text !important;
+  }
+}
+
+/* Дополнительные стили для iOS Safari */
+@supports (-webkit-touch-callout: none) {
+  input,
+  textarea,
+  select {
+    background: rgba(255, 255, 255, 0.1) !important;
+    border: 2px solid rgba(255, 255, 255, 0.3) !important;
+    appearance: none;
+    -webkit-appearance: none !important;
+  }
+  
+  input:focus,
+  textarea:focus,
+  select:focus {
+    background: rgba(255, 255, 255, 0.15) !important;
+    border-color: rgba(255, 255, 255, 0.5) !important;
+  }
+}
+
+/* Исправление для кнопок в админке - убеждаемся что текст виден */
+.telegram-button-primary,
+button.telegram-button-primary {
+  color: white !important;
+  background: rgba(255,255,255,0.02) !important;
+  border-color: rgba(255,255,255,0.8) !important;
+}
+
+/* Исправление для всех кнопок с белым текстом - убеждаемся что фон не белый */
+/* Кнопки с белым фоном (высокая непрозрачность) должны иметь темный текст */
+.main-button {
+  color: white !important;
+}
+
+/* Заменяем синий цвет текста на белый для всех элементов, кроме кнопок с белым фоном */
+/* Используем более общий селектор для переопределения inline стилей */
+[style*="#1E3A8A"]:not(button):not([style*="background"][style*="rgba(255,255,255"]):not([style*="background"][style*="white"]),
+[style*="#2196F3"]:not(button):not([style*="background"][style*="rgba(255,255,255"]):not([style*="background"][style*="white"]),
+[style*="#007bff"]:not(button):not([style*="background"][style*="rgba(255,255,255"]):not([style*="background"][style*="white"]),
+[style*="#0088cc"]:not(button):not([style*="background"][style*="rgba(255,255,255"]):not([style*="background"][style*="white"]) {
+  color: white !important;
+}
+
+/* Дополнительное правило для элементов с синим цветом текста */
+div[style*="color: #1E3A8A"],
+span[style*="color: #1E3A8A"],
+p[style*="color: #1E3A8A"],
+div[style*="color: #2196F3"],
+span[style*="color: #2196F3"],
+p[style*="color: #2196F3"],
+div[style*="color: #007bff"],
+span[style*="color: #007bff"],
+p[style*="color: #007bff"],
+div[style*="color: #0088cc"],
+span[style*="color: #0088cc"],
+p[style*="color: #0088cc"] {
+  color: white !important;
+}
+
+
+/* ===== КАРТОЧКИ ===== */
+.card-base {
+  background: rgba(255,255,255,0.02);
+  border: 3px solid rgba(255,255,255,0.8);
+  border-radius: 30px;
+  padding: 1.5rem;
+  margin: 1rem auto;
+  max-width: 350px;
+  width: 90%;
+  backdrop-filter: blur(10px);
+  color: white;
+  position: relative;
+  z-index: 1;
+  transition: all 0.3s ease;
+}
+
+.card-clickable {
+  cursor: pointer;
+  text-decoration: none;
+  display: block;
+}
+
+.card-clickable:hover {
+  background: rgba(255,255,255,0.08);
+  transform: translateY(-2px);
+  box-shadow: 0 8px 25px rgba(0,0,0,0.2);
+}
+
+.card-clickable:active {
+  transform: translateY(0);
+}
+
+/* ===== КАРТОЧКА ПОЛЯ ===== */
+.field-card {
+  background: rgba(255,255,255,0.1);
+  border: 3px solid rgba(255,255,255,0.3);
+  border-radius: 20px;
+  padding: 0;
+  margin: 1rem auto;
+  max-width: 350px;
+  backdrop-filter: blur(10px);
+  color: white;
+  overflow: hidden;
+}
+
+.field-image {
+  width: 100%;
+  height: 200px;
+  object-fit: cover;
+  border-radius: 17px 17px 0 0;
+}
+
+.field-info {
+  padding: 1rem;
+}
+
+.field-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  margin-bottom: 1rem;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+}
+
+.field-badge {
+  background: #8BC34A;
+  color: white;
+  padding: 0.5rem 1rem;
+  border-radius: 15px;
+  font-size: 0.9rem;
+  font-weight: 600;
+  text-align: center;
+  flex: 1;
+  min-width: 120px;
+}
+
+.field-features {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 0.8rem;
+  margin-bottom: 1rem;
+}
+
+.field-feature {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-size: 0.9rem;
+  line-height: 1.3;
+}
+
+.field-feature img {
+  width: 24px;
+  height: 24px;
+  flex-shrink: 0;
+}
+
+/* ===== ТЕКСТОВЫЕ СТИЛИ ===== */
+.page-title {
+  font-size: 2rem;
+  font-weight: normal;
+  color: white;
+  text-shadow: 0px 0px 10px rgba(255,255,255,0.8);
+  line-height: 1;
+  /* transform: rotate(-2deg); */
+  text-align: center;
+  margin: 1rem 0;
+}
+
+.match-date {
+  font-size: 1rem;
+  font-weight: 600;
+  margin-bottom: 0.5rem;
+}
+
+.match-time {
+  font-size: 1rem;
+  margin-bottom: 0.5rem;
+}
+
+.match-location {
+  font-size: 1rem;
+  font-weight: 500;
+  margin-bottom: 1rem;
+}
+
+/* ===== СТАТИСТИКА ===== */
+.stats-container {
+  background: rgba(255,255,255,0.02);
+  border: 3px solid rgba(255,255,255,0.8);
+  border-radius: 30px;
+  padding: 2rem;
+  margin: 2rem auto;
+  max-width: 350px;
+  width: 90%;
+  backdrop-filter: blur(10px);
+  color: white;
+}
+
+.stats-row {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 0.8rem;
+  font-size: 1rem;
+  line-height: 2;
+}
+
+.stats-label {
+  font-weight: 500;
+}
+
+.stats-value {
+  font-weight: 600;
+}
+
+/* ===== КОМАНДЫ-ПОБЕДИТЕЛИ ===== */
+.winners-section {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-top: 1rem;
+  gap: 1rem;
+}
+
+.winners-icon {
+  display: flex;
+  align-items: center;
+  flex-shrink: 0;
+}
+
+.winners-icon img {
+  width: 60px;
+  height: 40px;
+  object-fit: contain;
+}
+
+.winners-text {
+  font-weight: 600;
+  font-size: 0.9rem;
+  text-align: right;
+  line-height: 1.3;
+}
+
+/* ===== РЕЗУЛЬТАТ МАТЧА ===== */
+.match-result-container {
+  background: transparent;
+  border: 3px solid rgba(255,255,255,0.8);
+  border-radius: 25px;
+  padding: 3rem 2rem;
+  margin: 2rem auto;
+  max-width: 350px;
+  width: 90%;
+  min-height: 400px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  color: white;
+}
+
+.result-icon-container {
+  display: flex;
+  margin-bottom: 2rem;
+  align-items: center;
+  justify-content: center;
+}
+
+.result-icon-container img {
+  width: 120px;
+  height: 80px;
+  object-fit: contain;
+}
+
+.result-text {
+  text-align: center;
+}
+
+.result-title {
+  font-size: 1.5rem;
+  font-weight: 600;
+  margin-bottom: 0.5rem;
+  opacity: 0.9;
+}
+
+.result-winner {
+  font-size: 1.8rem;
+  font-weight: 700;
+  color: white;
+}
+
+.result-score {
+  font-size: 1rem;
+  margin-top: 0.5rem;
+  opacity: 0.8;
+}
+
+/* ===== СПИСОК ИГРОКОВ ===== */
+.players-container {
+  background: rgba(255,255,255,0.02);
+  border: 3px solid rgba(255,255,255,0.8);
+  border-radius: 30px;
+  padding: 1.5rem;
+  margin: 1rem auto;
+  max-width: 350px;
+  width: 90%;
+  backdrop-filter: blur(10px);
+  color: white;
+}
+
+.players-title {
+  font-size: 1.2rem;
+  font-weight: 600;
+  margin-bottom: 1rem;
+  text-align: center;
+  line-height: 1.3;
+}
+
+.player-item {
+  display: flex;
+  align-items: center;
+  padding: 0.5rem 0;
+  font-size: 1rem;
+}
+
+.player-number {
+  margin-right: 0.5rem;
+  font-weight: 600;
+}
+
+/* ===== FAQ ===== */
+.faq-item {
+  background: rgba(255,255,255,0.02);
+  border: 3px solid rgba(255,255,255,0.8);
+  border-radius: 30px;
+  padding: 1rem 1.5rem;
+  margin: 1rem auto;
+  max-width: 350px;
+  width: 100%;
+  backdrop-filter: blur(10px);
+  color: white;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.faq-item:hover {
+  background: rgba(255,255,255,0.08);
+}
+
+.faq-question {
+  font-size: 1rem;
+  font-weight: 600;
+}
+
+.faq-answer {
+  margin-top: 1rem;
+  font-size: 0.9rem;
+  line-height: 1.5;
+  opacity: 0.9;
+}
+
+.contact-section {
+  background: rgba(255,255,255,0.02);
+  border: 3px solid rgba(255,255,255,0.8);
+  border-radius: 30px;
+  padding: 1.5rem;
+  margin: 1rem auto;
+  max-width: 350px;
+  width: 90%;
+  backdrop-filter: blur(10px);
+  color: white;
+  text-align: center;
+}
+
+.contact-title {
+  font-size: 1.1rem;
+  font-weight: 600;
+  margin-bottom: 0.5rem;
+}
+
+.contact-description {
+  font-size: 0.9rem;
+  opacity: 0.9;
+  margin-bottom: 1rem;
+}
+
+.contact-button {
+  background: rgba(255,255,255,0.9);
+  color: #1E3A8A !important;
+  border: 2px solid rgba(255,255,255,0.3);
+  border-radius: 25px;
+  padding: 0.8rem 1.5rem;
+  font-size: 1rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  backdrop-filter: blur(10px);
+}
+
+.contact-button:hover {
+  background: rgba(255,255,255,1);
+  transform: translateY(-2px);
+}
+
+/* ===== КНОПКА НАЗАД ===== */
+.back-button {
+  background: rgba(255,255,255,0.02);
+  color: white;
+  border: 3px solid rgba(255,255,255,0.8);
+  border-radius: 30px;
+  padding: 1rem 2rem;
+  font-size: 1.1rem;
+  font-weight: bold;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  backdrop-filter: blur(10px);
+  text-decoration: none;
+  display: block;
+  text-align: center;
+  margin: 2rem auto;
+  max-width: 350px;
+  width: 90%;
+}
+
+.back-button:hover {
+  background: rgba(255,255,255,0.08);
+  transform: translateY(-2px);
+}
+
+/* ===== МОДАЛЬНЫЕ ОКНА ===== */
+.modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0,0,0,0.5);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1000;
+  padding: 1rem;
+}
+
+.modal-content {
+  background: rgba(255,255,255,0.95);
+  border-radius: 20px;
+  padding: 2rem;
+  max-width: 350px;
+  width: 100%;
+  text-align: center;
+  backdrop-filter: blur(10px);
+}
+
+.modal-title {
+  color: white;
+  font-size: 1.3rem;
+  font-weight: 600;
+  margin-bottom: 1.5rem;
+}
+
+.modal-buttons {
+  display: flex;
+  gap: 1rem;
+  justify-content: center;
+  flex-wrap: wrap;
+}
+
+.modal-button {
+  background: rgba(30,58,138,0.1);
+  color: white;
+  border: 2px solid rgba(30,58,138,0.3);
+  border-radius: 15px;
+  padding: 0.8rem 1.5rem;
+  font-size: 1rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  min-width: 100px;
+}
+
+.modal-button:hover {
+  background: rgba(30,58,138,0.2);
+}
+
+.modal-button.primary {
+  background: #1E3A8A;
+  color: white;
+  border-color: #1E3A8A;
+}
+
+.modal-button.primary:hover {
+  background: #1E40AF;
+}
+
+/* ===== УВЕДОМЛЕНИЯ ===== */
+.notification-modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: linear-gradient(135deg, #4A90E2 0%, #2E5BBA 50%, #1E3A8A 100%);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1000;
+  padding: 1rem;
+}
+
+.notification-modal-content {
+  border-radius: 20px;
+  padding: 2rem 1.5rem;
+  max-width: 350px;
+  width: 100%;
+  text-align: center;
+  color: white;
+  backdrop-filter: blur(10px);
+  border: 2px solid rgba(255,255,255,0.2);
+}
+
+.notification-modal-title {
+  font-size: 1.3rem;
+  font-weight: 700;
+  margin-bottom: 1.5rem;
+  line-height: 1.4;
+}
+
+.notification-modal-message {
+  font-size: 1rem;
+  font-weight: 500;
+  margin-bottom: 2rem;
+  line-height: 1.5;
+  opacity: 0.95;
+}
+
+.notification-modal-buttons {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  align-items: center;
+}
+
+.notification-modal-button {
+  background: transparent;
+  color: white;
+  border: 2px solid rgba(255,255,255,0.8);
+  border-radius: 25px;
+  padding: 0.8rem 2rem;
+  font-size: 1rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  min-width: 200px;
+  backdrop-filter: blur(5px);
+}
+
+.notification-modal-button:hover {
+  background: rgba(255,255,255,0.1);
+  transform: translateY(-2px);
+  box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+}
+
+/* ===== АДАПТИВНОСТЬ ===== */
+@media (max-width: 480px) {
+  .field-header {
+    flex-direction: column;
+    align-items: stretch;
+  }
+  
+  .field-badge {
+    flex: none;
+    min-width: auto;
+  }
+  
+  .field-features {
+    grid-template-columns: 1fr;
+    gap: 0.6rem;
+  }
+  
+  .winners-section {
+    flex-direction: column;
+    align-items: center;
+    gap: 0.5rem;
+  }
+  
+  .winners-text {
+    text-align: center;
+  }
+  
+  .modal-buttons {
+    flex-direction: column;
+  }
+  
+  .modal-button {
+    min-width: 150px;
+  }
+  
+  .notification-modal-button {
+    min-width: 180px;
+    font-size: 0.9rem;
+  }
+  
+  .match-result-container {
+    padding: 2rem 1.5rem;
+    min-height: 350px;
+  }
+  
+  .result-icon-container img {
+    width: 100px;
+    height: 65px;
+  }
+  
+  .result-title {
+    font-size: 1.3rem;
+  }
+  
+  .result-winner {
+    font-size: 1.5rem;
+  }
+}
+
+/* ===== АНИМАЦИИ ===== */
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.fade-in {
+  animation: fadeIn 0.5s ease-out;
+}
+
+/* ===== УТИЛИТЫ ===== */
+.text-center {
+  text-align: center;
+}
+
+.mb-1 {
+  margin-bottom: 0.5rem;
+}
+
+.mb-2 {
+  margin-bottom: 1rem;
+}
+
+.mt-2 {
+  margin-top: 1rem;
+}
+
+.font-bold {
+  font-weight: 600;
+}
+
+.opacity-90 {
+  opacity: 0.9;
+}
+
+/* ===== LAYOUT КОМПОНЕНТ ===== */
+.layout-container {
+  width: 100vw;
+  height: 100vh;
+  background: white;
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+  overflow-y: auto;
+  overflow-x: hidden;
+  position: fixed;
+  top: 0;
+  left: 0;
+  padding: 0;
+  margin: 0;
+  touch-action: pan-y;
+  overscroll-behavior: none;
+  -webkit-overflow-scrolling: touch;
+}
+
+.background-image {
+  position: absolute;
+  top: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  width: auto;
+  height: 100vh;
+  min-height: 100vh;
+  object-fit: contain;
+  object-position: center;
+  z-index: 0;
+}
+
+.background-gradient {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(180deg, #4A90E2 0%, #2E5BBA 50%, #1E3A8A 100%);
+  z-index: -1;
+}
+
+.background-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(25, 32, 40, 0.6);
+  z-index: 1;
+}
+
+.background-logo {
+  position: absolute;
+  top: 15%;
+  left: 50%;
+  transform: translateX(-50%);
+  text-align: center;
+  z-index: 1.5;
+  width: 90%;
+  filter: blur(1px);
+  opacity: 0.3;
+  pointer-events: none;
+}
+
+.logo-ball {
+  width: 40px;
+  height: 40px;
+  margin-bottom: 5px;
+}
+
+.logo-vector {
+  position: absolute;
+  top: 15px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 250px;
+  height: auto;
+  z-index: -1;
+}
+
+.logo-text-main {
+  font-family: sans-serif;
+  font-size: 2.5rem;
+  font-weight: normal;
+  color: white;
+  text-shadow: 0px 0px 10px rgba(255,255,255,0.8);
+  line-height: 0.9;
+  /* transform: rotate(-2deg); */
+  margin-bottom: 5px;
+}
+
+.logo-text-sub {
+  font-family: 'EdoSZ', sans-serif;
+  font-size: 2rem;
+  font-weight: normal;
+  color: white;
+  text-shadow: 0px 0px 10px rgba(255,255,255,0.8);
+  /* transform: rotate(-3deg); */
+}
+
+.background-text {
+  position: absolute;
+  font-family: 'EdoSZ', Inter, sans-serif;
+  color: white;
+  z-index: 2;
+  pointer-events: none;
+  text-shadow: 0 0 5px rgba(255,255,255,0.3);
+}
+
+.page-title-container {
+  position: absolute;
+  top: 5%;
+  left: 50%;
+  transform: translateX(-50%);
+  text-align: center;
+  z-index: 3;
+  width: 90%;
+}
+
+.page-title-vector {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 250px;
+  height: auto;
+  z-index: -1;
+}
+
+.content-container {
+  position: relative;
+  z-index: 3;
+  width: 100%;
+  min-height: 100vh;
+  max-width: 100vw;
+  padding-bottom: 50px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  overflow-x: hidden;
+  box-sizing: border-box;
+}
+
+/* ===== ГЛАВНАЯ СТРАНИЦА ===== */
+.main-navigation {
+  position: absolute;
+  top: 45%;
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+  z-index: 2;
+  width: 90%;
+  max-width: 350px;
+}
+/*
+ Admin Styles */
+.admin-dashboard {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1.5rem;
+  width: 100%;
+  max-width: 100vw;
+  margin: 0 auto;
+  padding: 1rem;
+  min-height: 100vh;
+}
+
+.admin-menu-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 1rem;
+  width: 100%;
+  max-width: 400px;
+}
+
+.admin-menu-item {
+  background: rgba(255, 255, 255, 0.02);
+  border: 3px solid rgba(255, 255, 255, 0.8);
+  border-radius: 20px;
+  padding: 1.5rem;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  backdrop-filter: blur(10px);
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+
+.admin-menu-item:hover {
+  background: rgba(255, 255, 255, 0.1);
+  transform: translateY(-2px);
+}
+
+.admin-menu-icon {
+  font-size: 2rem;
+  min-width: 60px;
+  text-align: center;
+}
+
+.admin-menu-content {
+  flex: 1;
+}
+
+.admin-menu-title {
+  color: white;
+  font-size: 1.1rem;
+  font-weight: 600;
+  margin: 0 0 0.5rem 0;
+}
+
+.admin-menu-description {
+  color: rgba(255, 255, 255, 0.7);
+  font-size: 0.9rem;
+  margin: 0;
+}
+
+.admin-actions {
+  display: flex;
+  gap: 1rem;
+  justify-content: center;
+  width: 100%;
+  margin-top: 2rem;
+}
+
+/* Form Styles */
+.create-match-container,
+.match-results-form-container,
+.notifications-container,
+.current-bookings-container,
+.refunds-container,
+.questions-container,
+.players-container,
+.logs-container {
+  width: 100%;
+  max-width: 600px;
+  margin: 0 auto;
+  padding: 1rem;
+}
+
+.create-match-form,
+.results-form,
+.notification-form {
+  background: rgba(255, 255, 255, 0.02);
+  border: 3px solid rgba(255, 255, 255, 0.8);
+  border-radius: 20px;
+  padding: 2rem;
+  backdrop-filter: blur(10px);
+}
+
+.form-group {
+  margin-bottom: 1.5rem;
+}
+
+.form-group label {
+  display: block;
+  color: white;
+  font-weight: 600;
+  margin-bottom: 0.5rem;
+}
+
+.form-group input,
+.form-group select,
+.form-group textarea {
+  width: 100%;
+  padding: 0.75rem;
+  border: 2px solid rgba(255, 255, 255, 0.3);
+  border-radius: 10px;
+  background: rgba(255, 255, 255, 0.1);
+  color: white;
+  font-size: 1rem;
+  backdrop-filter: blur(10px);
+  transition: all 0.3s ease;
+  caret-color: white; /* Мигающий курсор белого цвета */
+}
+
+.form-group input::placeholder,
+.form-group textarea::placeholder {
+  color: rgba(255, 255, 255, 0.5);
+}
+
+.form-group input:focus,
+.form-group select:focus,
+.form-group textarea:focus {
+  outline: none;
+  border-color: rgba(255, 255, 255, 0.8);
+  background: rgba(255, 255, 255, 0.15);
+  box-shadow: 0 0 0 3px rgba(255, 255, 255, 0.1);
+}
+
+/* Подсвечивание рамки при заполнении */
+.form-group input:not(:placeholder-shown),
+.form-group textarea:not(:placeholder-shown) {
+  border-color: rgba(255, 255, 255, 0.6);
+  background: rgba(255, 255, 255, 0.12);
+}
+
+/* Десктопные hover эффекты с мягким свечением */
+@media (hover: hover) and (pointer: fine) {
+  .form-group input:hover,
+  .form-group select:hover,
+  .form-group textarea:hover {
+    border-color: rgba(255, 255, 255, 0.5);
+    background: rgba(255, 255, 255, 0.12);
+    box-shadow: 0 0 15px rgba(255, 255, 255, 0.2);
+  }
+  
+  .form-group input:focus,
+  .form-group select:focus,
+  .form-group textarea:focus {
+    box-shadow: 0 0 0 3px rgba(255, 255, 255, 0.1), 0 0 20px rgba(255, 255, 255, 0.3);
+  }
+}
+
+.form-row {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1rem;
+}
+
+.form-actions {
+  display: flex;
+  gap: 1rem;
+  justify-content: center;
+  margin-top: 2rem;
+}
+
+.form-hint {
+  display: block;
+  color: rgba(255, 255, 255, 0.6);
+  font-size: 0.8rem;
+  margin-top: 0.25rem;
+}
+
+.duration-info {
+  background: rgba(255, 255, 255, 0.1);
+  border-radius: 10px;
+  padding: 1rem;
+  margin: 1rem 0;
+  color: white;
+}
+
+.duration-info p {
+  margin: 0.25rem 0;
+}
+
+/* Success Screen */
+.success-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1.5rem;
+  text-align: center;
+  color: white;
+  max-width: 500px;
+  margin: 0 auto;
+  padding: 2rem;
+}
+
+.success-icon {
+  font-size: 4rem;
+}
+
+.success-container h2 {
+  font-size: 1.5rem;
+  margin: 0;
+}
+
+.success-container p {
+  font-size: 1rem;
+  opacity: 0.9;
+  margin: 0;
+}
+
+.success-actions {
+  display: flex;
+  gap: 1rem;
+  justify-content: center;
+}
+
+/* Match Selection */
+.matches-list {
+  margin-bottom: 2rem;
+}
+
+.matches-list h3 {
+  color: white;
+  margin-bottom: 1rem;
+  text-align: center;
+}
+
+.matches-dropdown {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.match-option {
+  background: rgba(255, 255, 255, 0.02);
+  border: 2px solid rgba(255, 255, 255, 0.3);
+  border-radius: 15px;
+  padding: 1rem;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  backdrop-filter: blur(10px);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.match-option:hover {
+  background: rgba(255, 255, 255, 0.1);
+  border-color: rgba(255, 255, 255, 0.8);
+}
+
+.match-info {
+  color: white;
+}
+
+.match-date-time {
+  font-weight: 600;
+  margin-bottom: 0.25rem;
+}
+
+.match-venue {
+  font-size: 0.9rem;
+  opacity: 0.8;
+}
+
+.match-arrow {
+  color: white;
+  font-size: 1.2rem;
+}
+
+.no-matches {
+  color: rgba(255, 255, 255, 0.7);
+  text-align: center;
+  padding: 2rem;
+}
+
+/* Match Details */
+.match-details-container {
+  color: white;
+}
+
+.match-header {
+  background: rgba(255, 255, 255, 0.1);
+  border-radius: 15px;
+  padding: 1.5rem;
+  margin-bottom: 2rem;
+  text-align: center;
+  backdrop-filter: blur(10px);
+}
+
+.match-header h3 {
+  margin: 0 0 0.5rem 0;
+  font-size: 1.2rem;
+}
+
+.match-header p {
+  margin: 0;
+  opacity: 0.8;
+}
+
+.players-section {
+  margin-bottom: 2rem;
+}
+
+.players-section h4 {
+  color: white;
+  margin-bottom: 1rem;
+}
+
+.players-list {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.player-item {
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  border-radius: 10px;
+  padding: 0.75rem;
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+
+.player-number {
+  color: rgba(255, 255, 255, 0.6);
+  font-weight: 600;
+  min-width: 20px;
+}
+
+.player-name {
+  flex: 1;
+  color: white;
+}
+
+.remove-btn {
+  font-size: 0.8rem !important;
+  padding: 0.4rem 0.8rem !important;
+}
+
+.no-players {
+  color: rgba(255, 255, 255, 0.6);
+  text-align: center;
+  padding: 1rem;
+  font-style: italic;
+}
+
+/* Lists (Refunds, Questions, etc.) */
+.refunds-list,
+.questions-list,
+.logs-list {
+  margin-bottom: 2rem;
+}
+
+.refunds-list h3,
+.questions-list h3,
+.logs-list h3 {
+  color: white;
+  margin-bottom: 1rem;
+}
+
+.refunds-items,
+.questions-items,
+.logs-items {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.refund-item,
+.question-item,
+.log-item {
+  background: rgba(255, 255, 255, 0.02);
+  border: 2px solid rgba(255, 255, 255, 0.3);
+  border-radius: 15px;
+  padding: 1rem;
+  backdrop-filter: blur(10px);
+}
+
+.refund-item,
+.question-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: 1rem;
+}
+
+.refund-info,
+.question-info {
+  flex: 1;
+  display: flex;
+  gap: 0.5rem;
+}
+
+.refund-number,
+.question-number {
+  color: rgba(255, 255, 255, 0.6);
+  font-weight: 600;
+  min-width: 20px;
+}
+
+.refund-details,
+.question-details {
+  flex: 1;
+  color: white;
+}
+
+.refund-user,
+.question-user {
+  font-weight: 600;
+  margin-bottom: 0.25rem;
+}
+
+.refund-match,
+.refund-amount,
+.refund-reason,
+.question-text,
+.question-date {
+  font-size: 0.9rem;
+  opacity: 0.8;
+  margin-bottom: 0.25rem;
+}
+
+.refund-actions,
+.question-actions {
+  display: flex;
+  gap: 0.5rem;
+  flex-direction: column;
+}
+
+.chat-btn,
+.answer-btn,
+.approve-btn,
+.close-btn {
+  font-size: 0.8rem !important;
+  padding: 0.4rem 0.8rem !important;
+  white-space: nowrap;
+}
+
+.no-refunds,
+.no-questions,
+.no-logs {
+  color: rgba(255, 255, 255, 0.6);
+  text-align: center;
+  padding: 2rem;
+  font-style: italic;
+}
+
+/* Players Table */
+.players-table-container {
+  overflow-x: auto;
+  margin-bottom: 2rem;
+}
+
+.players-table {
+  width: 100%;
+  min-width: 800px;
+}
+
+.table-header,
+.table-row {
+  display: grid;
+  grid-template-columns: 2fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1.5fr;
+  gap: 0.5rem;
+  padding: 0.75rem;
+  border-radius: 10px;
+  margin-bottom: 0.5rem;
+}
+
+.table-header {
+  background: rgba(255, 255, 255, 0.1);
+  font-weight: 600;
+  color: white;
+}
+
+.table-row {
+  background: rgba(255, 255, 255, 0.02);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+.table-cell {
+  display: flex;
+  align-items: center;
+  color: white;
+  font-size: 0.9rem;
+}
+
+.player-name {
+  font-weight: 600;
+}
+
+/* Logs */
+.logs-filters {
+  margin-bottom: 2rem;
+}
+
+.logs-filters h3 {
+  color: white;
+  margin-bottom: 1rem;
+}
+
+.filter-buttons {
+  display: flex;
+  gap: 0.5rem;
+  flex-wrap: wrap;
+}
+
+.log-item {
+  display: flex;
+  gap: 1rem;
+  align-items: flex-start;
+  overflow: hidden;
+  word-wrap: break-word;
+}
+
+.log-timestamp {
+  color: rgba(255, 255, 255, 0.6);
+  font-size: 0.8rem;
+  min-width: 80px;
+  font-family: monospace;
+}
+
+.log-content {
+  flex: 1;
+  color: white;
+  word-wrap: break-word;
+  overflow-wrap: break-word;
+  word-break: break-word;
+  max-width: 100%;
+}
+
+.log-type {
+  font-weight: 600;
+  margin-bottom: 0.25rem;
+}
+
+.log-message {
+  margin-bottom: 0.25rem;
+  word-wrap: break-word;
+  overflow-wrap: break-word;
+  word-break: break-word;
+  max-width: 100%;
+}
+
+.log-user {
+  font-weight: 600;
+  color: rgba(255, 255, 255, 0.8);
+}
+
+.log-details {
+  font-size: 0.8rem;
+  opacity: 0.7;
+  word-wrap: break-word;
+  overflow-wrap: break-word;
+  word-break: break-word;
+  max-width: 100%;
+}
+
+.logs-info {
+  background: rgba(255, 255, 255, 0.05);
+  border-radius: 10px;
+  padding: 1rem;
+  margin-bottom: 2rem;
+  color: rgba(255, 255, 255, 0.8);
+  font-size: 0.9rem;
+}
+
+/* Notifications */
+.users-reference {
+  margin-top: 2rem;
+  background: rgba(255, 255, 255, 0.05);
+  border-radius: 15px;
+  padding: 1rem;
+}
+
+.users-reference h4 {
+  color: white;
+  margin-bottom: 1rem;
+}
+
+.users-list {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+}
+
+.user-tag {
+  background: rgba(255, 255, 255, 0.1);
+  color: white;
+  padding: 0.25rem 0.5rem;
+  border-radius: 15px;
+  font-size: 0.8rem;
+}
+
+.more-users {
+  color: rgba(255, 255, 255, 0.6);
+  font-style: italic;
+}
+
+.broadcast-btn {
+  background: rgba(255, 165, 0, 0.8) !important;
+}
+
+.broadcast-btn:hover {
+  background: rgba(255, 165, 0, 1) !important;
+}
+
+/* Question Answer */
+.question-answer-container {
+  color: white;
+}
+
+.question-details {
+  background: rgba(255, 255, 255, 0.05);
+  border-radius: 15px;
+  padding: 1.5rem;
+  margin-bottom: 2rem;
+}
+
+.question-header h3 {
+  margin: 0 0 0.5rem 0;
+}
+
+.question-date {
+  color: rgba(255, 255, 255, 0.6);
+  font-size: 0.9rem;
+}
+
+.question-text {
+  margin-top: 1rem;
+  padding: 1rem;
+  background: rgba(255, 255, 255, 0.05);
+  border-radius: 10px;
+}
+
+.answer-form {
+  background: rgba(255, 255, 255, 0.02);
+  border: 2px solid rgba(255, 255, 255, 0.3);
+  border-radius: 15px;
+  padding: 1.5rem;
+  backdrop-filter: blur(10px);
+}
+
+/* Admin Chat */
+.admin-chat-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.8);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1000;
+  padding: 1rem;
+}
+
+.admin-chat-container {
+  background: rgba(30, 58, 138, 0.95);
+  border: 3px solid rgba(255, 255, 255, 0.8);
+  border-radius: 20px;
+  width: 100%;
+  max-width: 500px;
+  max-height: 80vh;
+  display: flex;
+  flex-direction: column;
+  backdrop-filter: blur(20px);
+}
+
+.chat-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1rem 1.5rem;
+  border-bottom: 2px solid rgba(255, 255, 255, 0.2);
+}
+
+.chat-header h3 {
+  color: white;
+  margin: 0;
+  font-size: 1.1rem;
+}
+
+.close-btn {
+  background: none;
+  border: none;
+  color: white;
+  font-size: 1.5rem;
+  cursor: pointer;
+  padding: 0;
+  width: 30px;
+  height: 30px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  transition: background 0.3s ease;
+}
+
+.close-btn:hover {
+  background: rgba(255, 255, 255, 0.1);
+}
+
+.chat-messages {
+  flex: 1;
+  overflow-y: auto;
+  padding: 1rem;
+  min-height: 300px;
+  max-height: 400px;
+}
+
+.no-messages {
+  text-align: center;
+  color: rgba(255, 255, 255, 0.7);
+  padding: 2rem;
+}
+
+.no-messages p {
+  margin: 0.5rem 0;
+}
+
+.message {
+  margin-bottom: 1rem;
+  display: flex;
+}
+
+.user-message {
+  justify-content: flex-end;
+}
+
+.admin-message {
+  justify-content: flex-start;
+}
+
+.message-content {
+  max-width: 80%;
+  padding: 0.75rem 1rem;
+  border-radius: 15px;
+  position: relative;
+}
+
+.user-message .message-content {
+  background: rgba(255, 255, 255, 0.9);
+  color: #1E3A8A !important;
+}
+
+.admin-message .message-content {
+  background: rgba(255, 255, 255, 0.1);
+  color: white;
+  border: 1px solid rgba(255, 255, 255, 0.3);
+}
+
+.message-sender {
+  font-size: 0.8rem;
+  font-weight: 600;
+  margin-bottom: 0.25rem;
+  opacity: 0.8;
+}
+
+.message-text {
+  margin-bottom: 0.25rem;
+  line-height: 1.4;
+}
+
+.message-time {
+  font-size: 0.7rem;
+  opacity: 0.6;
+  text-align: right;
+}
+
+.chat-input {
+  padding: 1rem 1.5rem;
+  border-top: 2px solid rgba(255, 255, 255, 0.2);
+}
+
+.input-container {
+  display: flex;
+  gap: 0.5rem;
+  align-items: flex-end;
+}
+
+.input-container textarea {
+  flex: 1;
+  resize: none;
+  border: 2px solid rgba(255, 255, 255, 0.3);
+  border-radius: 10px;
+  padding: 0.75rem;
+  background: rgba(255, 255, 255, 0.1);
+  color: white;
+  font-family: inherit;
+  font-size: 0.9rem;
+}
+
+.input-container textarea::placeholder {
+  color: rgba(255, 255, 255, 0.5);
+}
+
+.input-container textarea:focus {
+  outline: none;
+  border-color: rgba(255, 255, 255, 0.8);
+  background: rgba(255, 255, 255, 0.15);
+}
+
+.send-btn {
+  padding: 0.75rem 1rem !important;
+  font-size: 0.9rem !important;
+  white-space: nowrap;
+}
+
+.chat-info {
+  padding: 0 1.5rem 1rem;
+  font-size: 0.8rem;
+  color: rgba(255, 255, 255, 0.6);
+  text-align: center;
+}
+
+.chat-info p {
+  margin: 0.25rem 0;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .admin-menu-grid {
+    grid-template-columns: 1fr;
+  }
+  
+  .form-row {
+    grid-template-columns: 1fr;
+  }
+  
+  .form-actions {
+    flex-direction: column;
+  }
+  
+  .refund-item,
+  .question-item {
+    flex-direction: column;
+    align-items: stretch;
+  }
+  
+  .refund-actions,
+  .question-actions {
+    flex-direction: row;
+    justify-content: flex-end;
+  }
+  
+  .players-table-container {
+    font-size: 0.8rem;
+  }
+  
+  .table-header,
+  .table-row {
+    grid-template-columns: 1.5fr 0.8fr 0.8fr 0.8fr 0.8fr 0.8fr 0.8fr 0.8fr 1fr;
+  }
+  
+  .filter-buttons {
+    justify-content: center;
+  }
+  
+  .admin-chat-container {
+    margin: 1rem;
+    max-height: calc(100vh - 2rem);
+  }
+}
+
+@media (max-width: 480px) {
+  .admin-menu-item {
+    flex-direction: column;
+    text-align: center;
+  }
+  
+  .admin-menu-icon {
+    min-width: auto;
+  }
+  
+  .players-table {
+    min-width: 600px;
+  }
+  
+  .table-header,
+  .table-row {
+    grid-template-columns: 1fr 0.6fr 0.6fr 0.6fr 0.6fr 0.6fr 0.6fr 0.6fr 0.8fr;
+    font-size: 0.7rem;
+  }
+}
+
+/* ===== SELECTOR COMPONENT ===== */
+.custom-selector {
+  position: relative;
+  width: 100%;
+}
+
+.custom-selector-trigger {
+  transition: all 0.2s ease;
+}
+
+.custom-selector-trigger:hover {
+  background: rgba(255,255,255,0.15) !important;
+  border-color: rgba(255,255,255,0.5) !important;
+}
+
+.custom-selector-trigger:active {
+  transform: scale(0.98);
+}
+
+.custom-selector-menu {
+  animation: fadeInDown 0.2s ease-out;
+}
+
+@keyframes fadeInDown {
+  from {
+    opacity: 0;
+    transform: translateY(-10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.custom-selector-option {
+  transition: all 0.2s ease !important;
+  position: relative;
+}
+
+.custom-selector-option:hover {
+  background: rgba(255,255,255,0.15) !important;
+  transform: translateX(4px);
+}
+
+.custom-selector-option:active {
+  transform: translateX(4px) scale(0.98);
+}
+
+/* Улучшенный hover для выбранного элемента */
+.custom-selector-option[data-selected="true"] {
+  background: rgba(59,130,246,0.25) !important;
+}
+
+.custom-selector-option[data-selected="true"]:hover {
+  background: rgba(59,130,246,0.35) !important;
+}
+
+/* Стили для стандартного select на мобильных устройствах */
+select.custom-selector-mobile {
+  outline: none;
+}
+
+select.custom-selector-mobile:focus {
+  border-color: rgba(255,255,255,0.5) !important;
+  background: rgba(255,255,255,0.15) !important;
+}
+
+select.custom-selector-mobile option {
+  background: rgba(15,23,42,0.98);
+  color: white;
+  padding: 10px;
+}
