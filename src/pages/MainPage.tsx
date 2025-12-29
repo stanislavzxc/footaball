@@ -154,36 +154,7 @@ const MainPage: React.FC = () => {
           </div>
         </div>
 
-        {/* Кнопка Профиль */}
-        <div 
-          id="parent-button"
-          style={{ 
-            display: 'flex',       
-            flexDirection: 'column', 
-            width: '66px', 
-            height: '50px',
-            alignItems: 'center' 
-          }}
-          onClick={() => setActiveTab("profile")}
-        >
-          <img 
-            src={activeTab === "profile" ? activeProfileImage : defaultProfileImage} 
-            style={{
-              width: '45%',
-              margin: 'auto',
-            }} 
-            alt=""
-          />
-          <div style={{
-            fontSize: "0.7rem",
-            textAlign:'center', 
-            // Аналогично для текста
-            color: activeTab === "profile" ? '#6FBBE5' : (isDarkTheme ? '#697281' : '#808080')
-          }}>
-            Мой профиль
-          </div>
-        </div>
-
+        
         {/* Кнопка История матчей */}
         <div 
           id="parent-button"
@@ -281,6 +252,36 @@ const MainPage: React.FC = () => {
             ответы на вопросы
           </div>
         </div>
+        {/* Кнопка Профиль */}
+        <div 
+          id="parent-button"
+          style={{ 
+            display: 'flex',       
+            flexDirection: 'column', 
+            width: '66px', 
+            height: '50px',
+            alignItems: 'center' 
+          }}
+          onClick={() => setActiveTab("profile")}
+        >
+          <img 
+            src={activeTab === "profile" ? activeProfileImage : defaultProfileImage} 
+            style={{
+              width: '45%',
+              margin: 'auto',
+            }} 
+            alt=""
+          />
+          <div style={{
+            fontSize: "0.7rem",
+            textAlign:'center', 
+            // Аналогично для текста
+            color: activeTab === "profile" ? '#6FBBE5' : (isDarkTheme ? '#697281' : '#808080')
+          }}>
+            Мой профиль
+          </div>
+        </div>
+
         </div>
         </div>
 

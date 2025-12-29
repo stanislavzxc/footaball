@@ -135,7 +135,11 @@ export const PaymentButton: React.FC<PaymentButtonProps> = ({
           marginTop: '0.5rem',
           fontStyle: 'italic'
         }}>
+          <div style={{
+            color:'grey',
+          }}>
           Откроется окно ЮКассы для оплаты
+          </div>
         </div>
       </div>
 
